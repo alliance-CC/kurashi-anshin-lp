@@ -163,7 +163,7 @@
       <span class="text-gray-500 text-xs md:text-sm">ご覧の立場をお選びください</span>
       <div class="inline-flex bg-teal-50 rounded-full p-1">
         <button type="button" data-mode="resident" onclick="setMode('resident')" class="seg-btn mode-active px-5 py-2 rounded-full font-bold text-teal-700 text-sm">入居者の方</button>
-        <button type="button" data-mode="partner" onclick="setMode('partner')" class="seg-btn px-5 py-2 rounded-full font-bold text-teal-700 text-sm">管理会社・提携企業の方</button>
+        <button type="button" data-mode="partner" onclick="setMode('partner')" class="seg-btn px-5 py-2 rounded-full font-bold text-teal-700 text-sm">提携をご検討の企業様</button>
       </div>
     </div>
   </div>
@@ -557,14 +557,14 @@
           <div class="text-teal-200 text-xs">プランのお申し込み・ご相談はこちら</div>
         </button>
         <button type="button" onclick="openForm('提携希望企業')" class="group bg-gold-500 hover:bg-gold-600 text-white rounded-2xl p-5 transition-all shadow-md hover:shadow-xl">
-          <div class="font-black text-base mb-1">管理会社・提携企業向け お申し込み</div>
-          <div class="text-yellow-100 text-xs">提携・導入のご相談はこちら</div>
+          <div class="font-black text-base mb-1">企業様の提携申込・お問い合わせ</div>
+          <div class="text-yellow-100 text-xs">提携・導入をご検討の企業様はこちら</div>
         </button>
       </div>
 
       <!-- フォーム -->
       <form id="contactForm" onsubmit="submitContact(event)" class="reveal bg-white border border-teal-100 rounded-2xl p-6 md:p-8 text-left shadow-sm">
-        <h3 class="font-black text-teal-900 text-lg mb-5 text-center">お問い合わせフォーム</h3>
+        <h3 class="font-black text-teal-900 text-lg mb-5 text-center">お問い合わせ・提携申込フォーム</h3>
 
         <!-- 種別 -->
         <fieldset class="mb-5">
@@ -576,10 +576,17 @@
             </label>
             <label class="flex items-center gap-2 border border-teal-200 rounded-xl px-4 py-3 cursor-pointer has-[:checked]:bg-teal-50 has-[:checked]:border-teal-600 transition-colors">
               <input type="radio" name="inquiryType" value="提携希望企業" class="accent-teal-700">
-              <span class="text-sm font-medium text-gray-700">提携希望企業の方</span>
+              <span class="text-sm font-medium text-gray-700">提携をご検討の企業様</span>
             </label>
           </div>
         </fieldset>
+
+        <!-- 会社名（提携希望企業のみ） -->
+        <div id="companyField" class="mb-5 hidden">
+          <label for="contactCompany" class="block text-sm font-bold text-gray-700 mb-2">会社名 <span class="text-gold-600">*</span></label>
+          <input id="contactCompany" name="company" type="text" placeholder="例）株式会社○○"
+            class="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500">
+        </div>
 
         <!-- 名前 -->
         <div class="mb-5">
@@ -679,6 +686,20 @@
     }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
+    // ===== Show/hide company name field based on type =====
+    function syncCompanyField() {
+      const checked = document.querySelector('input[name="inquiryType"]:checked');
+      const isPartner = checked && checked.value === '提携希望企業';
+      const field = document.getElementById('companyField');
+      const input = document.getElementById('contactCompany');
+      field.classList.toggle('hidden', !isPartner);
+      input.required = isPartner;
+      if (!isPartner) input.value = '';
+    }
+    document.querySelectorAll('input[name="inquiryType"]').forEach(r => {
+      r.addEventListener('change', syncCompanyField);
+    });
+
     // ===== Audience mode toggle (入居者 / 提携企業) =====
     function setMode(mode) {
       document.body.classList.remove('mode-resident', 'mode-partner');
@@ -697,6 +718,7 @@
       const formType = (mode === 'partner') ? '提携希望企業' : '入居者';
       const radio = document.querySelector('input[name="inquiryType"][value="' + formType + '"]');
       if (radio) radio.checked = true;
+      syncCompanyField();
     }
     setMode('resident'); // default: residents do NOT see the simulation
 
@@ -704,9 +726,11 @@
     function openForm(type) {
       const radio = document.querySelector('input[name="inquiryType"][value="' + type + '"]');
       if (radio) radio.checked = true;
+      syncCompanyField();
       const form = document.getElementById('contactForm');
       form.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      setTimeout(() => document.getElementById('contactName').focus(), 400);
+      const focusId = (type === '提携希望企業') ? 'contactCompany' : 'contactName';
+      setTimeout(() => document.getElementById(focusId).focus(), 400);
     }
 
     // ===== Submit -> compose email to alliance@lifeap.co =====
@@ -714,12 +738,16 @@
       e.preventDefault();
       const type = document.querySelector('input[name="inquiryType"]:checked').value;
       const name = document.getElementById('contactName').value.trim();
+      const company = document.getElementById('contactCompany').value.trim();
       const message = document.getElementById('contactMessage').value.trim();
 
-      const subject = '【お問い合わせ】' + type + '：' + name + ' 様';
-      const body =
-        'お問い合わせ種別：' + type + '\n' +
-        'お名前：' + name + '\n\n' +
+      const isPartner = (type === '提携希望企業');
+      const subject = '【' + (isPartner ? '提携申込・お問い合わせ' : 'お問い合わせ') + '】' +
+        (isPartner && company ? company + '：' : '') + name + ' 様';
+
+      let body = 'お問い合わせ種別：' + type + '\n';
+      if (isPartner) body += '会社名：' + company + '\n';
+      body += 'お名前：' + name + '\n\n' +
         'お問い合わせ内容：\n' + message + '\n';
 
       window.location.href =
