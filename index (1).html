@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>暮らし安心サービス | LifeUp</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            teal: {
+              50:  '#f0f9fa',
+              100: '#d9f0f3',
+              200: '#a8dde3',
+              300: '#6ec5ce',
+              500: '#0b8a98',
+              600: '#0b7280',
+              700: '#0b6e7a',
+              800: '#095c66',
+              900: '#074a52',
+            },
+            gold: {
+              400: '#f0b429',
+              500: '#e8a020',
+              600: '#c8860f',
+            },
+            mint: '#f0f9fa',
+          },
+          fontFamily: {
+            sans: ['"Noto Sans JP"', '"Hiragino Sans"', '"Yu Gothic"', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+  <style>
+    html { scroll-behavior: smooth; }
+
+    /* Wave dividers */
+    .wave-bottom {
+      position: relative;
+    }
+    .wave-bottom::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background: white;
+      clip-path: ellipse(55% 100% at 50% 100%);
+    }
+    .wave-bottom-mint::after {
+      background: #f0f9fa;
+    }
+    .wave-bottom-white::after {
+      background: #ffffff;
+    }
+
+    /* Fade-in animation */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-up {
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards;
+    }
+    .delay-100 { animation-delay: 0.1s; }
+    .delay-200 { animation-delay: 0.2s; }
+    .delay-300 { animation-delay: 0.3s; }
+    .delay-400 { animation-delay: 0.4s; }
+
+    /* Scroll-triggered reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Plan card hover */
+    .plan-card {
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .plan-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(11, 110, 122, 0.15);
+    }
+
+    /* Sticky nav shadow */
+    .nav-scrolled {
+      box-shadow: 0 2px 16px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body class="font-sans text-gray-800 bg-white">
+
+  <!-- ===== HEADER / NAV ===== -->
+  <header id="navbar" class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur transition-shadow duration-300">
+    <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <div class="w-8 h-8 bg-teal-700 rounded-full flex items-center justify-center">
+          <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+          </svg>
+        </div>
+        <span class="font-bold text-teal-800 text-sm md:text-base">lifeap</span>
+      </div>
+      <nav class="hidden md:flex items-center gap-6 text-sm text-gray-600">
+        <a href="#plans" class="hover:text-teal-700 transition-colors">プラン比較</a>
+        <a href="#plus" class="hover:text-teal-700 transition-colors">プラス</a>
+        <a href="#premium" class="hover:text-teal-700 transition-colors">プレミアム</a>
+        <a href="#price" class="hover:text-teal-700 transition-colors">料金</a>
+      </nav>
+      <a href="#cta" class="bg-gold-500 hover:bg-gold-600 text-white text-xs md:text-sm font-bold px-4 py-2 rounded-full transition-colors shadow-sm">
+        お問い合わせ
+      </a>
+    </div>
+  </header>
+
+
+  <!-- ===== HERO ===== -->
+  <section class="relative min-h-[90vh] flex items-center bg-gradient-to-br from-teal-900 via-teal-700 to-teal-500 wave-bottom wave-bottom-mint overflow-hidden pt-16">
+    <!-- Background pattern -->
+    <div class="absolute inset-0 opacity-10">
+      <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <pattern id="circles" x="0" y="0" width="60" height="60" patternUnits="userSpaceOnUse">
+            <circle cx="30" cy="30" r="20" fill="none" stroke="white" stroke-width="1"/>
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#circles)"/>
+      </svg>
+    </div>
+
+    <div class="relative max-w-5xl mx-auto px-4 py-20 text-center">
+      <!-- Badge -->
+      <div class="inline-flex items-center gap-2 bg-white/15 text-white text-xs md:text-sm font-medium px-4 py-1.5 rounded-full mb-6 animate-fade-up">
+        <span class="w-2 h-2 bg-gold-400 rounded-full"></span>
+        株式会社lifeap 提供サービス
+      </div>
+
+      <h1 class="text-3xl md:text-5xl lg:text-6xl font-black text-white leading-tight mb-6 animate-fade-up delay-100">
+        毎日の暮らしを、<br>もっと安心に。
+      </h1>
+
+      <p class="text-teal-100 text-base md:text-xl mb-3 animate-fade-up delay-200">
+        「<span class="text-white font-bold">暮らし安心プラス</span>」と「<span class="text-white font-bold">暮らし安心プレミアム</span>」の<br class="hidden md:inline">2プランから選べます。
+      </p>
+      <p class="text-teal-200 text-sm md:text-base mb-10 animate-fade-up delay-300">
+        デジタルの脅威・近隣トラブル・データ消失まで、日常のリスクをまるごとカバー。
+      </p>
+
+      <!-- CTA Buttons -->
+      <div class="flex flex-col sm:flex-row gap-3 justify-center animate-fade-up delay-400">
+        <a href="#cta" class="bg-gold-500 hover:bg-gold-600 text-white font-bold px-8 py-4 rounded-full text-sm md:text-base transition-all shadow-lg hover:shadow-xl">
+          今すぐ申し込む
+        </a>
+        <a href="#plans" class="bg-white/15 hover:bg-white/25 text-white font-bold px-8 py-4 rounded-full text-sm md:text-base transition-all border border-white/30">
+          プランを比較する ↓
+        </a>
+      </div>
+
+      <!-- Scroll indicator -->
+      <div class="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/50 animate-bounce mt-12">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== 2 PLANS OVERVIEW ===== -->
+  <section id="plans" class="bg-teal-50 pt-16 pb-20 wave-bottom wave-bottom-white">
+    <div class="max-w-5xl mx-auto px-4">
+      <div class="text-center mb-12 reveal">
+        <p class="text-teal-600 text-sm font-bold uppercase tracking-widest mb-2">2つのプラン</p>
+        <h2 class="text-2xl md:text-4xl font-black text-teal-900">あなたの暮らしに合ったプランを</h2>
+        <p class="text-gray-500 mt-3 text-sm md:text-base">セキュリティ・トラブル対応・データ保護を組み合わせた、暮らしのトータルサポート</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-6">
+        <!-- Plan Plus -->
+        <div class="plan-card bg-white rounded-2xl shadow-md overflow-hidden reveal">
+          <div class="bg-teal-700 p-6 text-white">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                </svg>
+              </div>
+              <div>
+                <p class="text-teal-200 text-xs font-bold">スタンダード</p>
+                <h3 class="text-xl font-black">暮らし安心プラス</h3>
+              </div>
+            </div>
+            <div class="text-3xl font-black">¥1,700<span class="text-base font-normal text-teal-200">/月</span></div>
+          </div>
+          <div class="p-6">
+            <ul class="space-y-3 text-sm text-gray-700">
+              <li class="flex items-start gap-2">
+                <span class="text-teal-500 font-bold mt-0.5">✓</span>
+                <span><strong>近隣トラブル解決支援 まもるん</strong>（24時間対応）</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-teal-500 font-bold mt-0.5">✓</span>
+                <span><strong>あんしんネットライフサポート</strong>（詐欺・盗難保険）</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-teal-500 font-bold mt-0.5">✓</span>
+                <span><strong>ノートンセキュリティ</strong>（複数端末対応）</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-teal-500 font-bold mt-0.5">✓</span>
+                <span><strong>データ復旧サービス</strong>（復旧率94%以上）</span>
+              </li>
+            </ul>
+            <a href="#plus" class="mt-6 block text-center bg-teal-700 hover:bg-teal-800 text-white font-bold py-3 rounded-xl transition-colors text-sm">
+              詳しく見る →
+            </a>
+          </div>
+        </div>
+
+        <!-- Plan Premium -->
+        <div class="plan-card bg-white rounded-2xl shadow-md overflow-hidden reveal delay-200">
+          <div class="bg-gradient-to-r from-teal-800 to-teal-600 p-6 text-white relative">
+            <div class="absolute top-4 right-4 bg-gold-500 text-white text-xs font-bold px-3 py-1 rounded-full">おすすめ</div>
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
+                </svg>
+              </div>
+              <div>
+                <p class="text-teal-200 text-xs font-bold">スリム版</p>
+                <h3 class="text-xl font-black">暮らし安心プレミアム</h3>
+              </div>
+            </div>
+            <div class="text-3xl font-black">¥1,200<span class="text-base font-normal text-teal-200">/月</span></div>
+          </div>
+          <div class="p-6">
+            <ul class="space-y-3 text-sm text-gray-700">
+              <li class="flex items-start gap-2">
+                <span class="text-teal-500 font-bold mt-0.5">✓</span>
+                <span><strong>近隣トラブル解決支援 まもるん</strong>（24時間対応）</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-teal-500 font-bold mt-0.5">✓</span>
+                <span><strong>あんしんネットライフサポート</strong>（詐欺・盗難保険）</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-gold-500 font-bold mt-0.5">－</span>
+                <span class="text-gray-400">ノートンセキュリティ（非含む）</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-gold-500 font-bold mt-0.5">－</span>
+                <span class="text-gray-400">データ復旧サービス（非含む）</span>
+              </li>
+            </ul>
+            <a href="#premium" class="mt-6 block text-center border-2 border-teal-700 text-teal-700 hover:bg-teal-700 hover:text-white font-bold py-3 rounded-xl transition-colors text-sm">
+              詳しく見る →
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== COMPARISON TABLE ===== -->
+  <section class="bg-white py-16">
+    <div class="max-w-5xl mx-auto px-4">
+      <div class="text-center mb-10 reveal">
+        <p class="text-teal-600 text-sm font-bold uppercase tracking-widest mb-2">詳細比較</p>
+        <h2 class="text-2xl md:text-4xl font-black text-teal-900">プラン比較表</h2>
+      </div>
+
+      <div class="overflow-x-auto rounded-2xl shadow-md reveal">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="bg-teal-800 text-white">
+              <th class="text-left p-4 font-bold min-w-[180px]">サービス内容</th>
+              <th class="text-center p-4 font-bold min-w-[130px]">
+                <div class="text-xs text-teal-300 mb-0.5">スタンダード</div>
+                暮らし安心プラス
+              </th>
+              <th class="text-center p-4 font-bold min-w-[130px]">
+                <div class="text-xs text-teal-300 mb-0.5">スリム版</div>
+                暮らし安心プレミアム
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-b border-gray-100 bg-teal-50/50">
+              <td class="p-4 font-medium text-gray-700">
+                <div class="font-bold text-gray-800">近隣トラブル解決支援 まもるん</div>
+                <div class="text-xs text-gray-500 mt-0.5">24時間 警察OB対応</div>
+              </td>
+              <td class="p-4 text-center text-2xl text-teal-600">✓</td>
+              <td class="p-4 text-center text-2xl text-teal-600">✓</td>
+            </tr>
+            <tr class="border-b border-gray-100">
+              <td class="p-4 font-medium text-gray-700">
+                <div class="font-bold text-gray-800">あんしんネットライフサポート</div>
+                <div class="text-xs text-gray-500 mt-0.5">詐欺保険＋盗難保険（各最大10万円）</div>
+              </td>
+              <td class="p-4 text-center text-2xl text-teal-600">✓</td>
+              <td class="p-4 text-center text-2xl text-teal-600">✓</td>
+            </tr>
+            <tr class="border-b border-gray-100 bg-teal-50/50">
+              <td class="p-4 font-medium text-gray-700">
+                <div class="font-bold text-gray-800">ノートンセキュリティ</div>
+                <div class="text-xs text-gray-500 mt-0.5">複数端末・マルウェア・フィッシング対策</div>
+              </td>
+              <td class="p-4 text-center text-2xl text-teal-600">✓</td>
+              <td class="p-4 text-center text-gray-300 text-2xl">－</td>
+            </tr>
+            <tr class="border-b border-gray-100">
+              <td class="p-4 font-medium text-gray-700">
+                <div class="font-bold text-gray-800">データ復旧サービス</div>
+                <div class="text-xs text-gray-500 mt-0.5">復旧率94%以上、PC・スマホ対応</div>
+              </td>
+              <td class="p-4 text-center text-2xl text-teal-600">✓</td>
+              <td class="p-4 text-center text-gray-300 text-2xl">－</td>
+            </tr>
+            <tr class="bg-teal-50">
+              <td class="p-4 font-bold text-gray-800">月額料金</td>
+              <td class="p-4 text-center font-black text-teal-800 text-xl">¥1,700<span class="text-sm font-normal">/月</span></td>
+              <td class="p-4 text-center font-black text-teal-800 text-xl">¥1,200<span class="text-sm font-normal">/月</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== PLUS PLAN DETAIL ===== -->
+  <section id="plus" class="bg-teal-50 py-16 wave-bottom wave-bottom-white">
+    <div class="max-w-5xl mx-auto px-4">
+      <div class="text-center mb-12 reveal">
+        <p class="text-teal-600 text-sm font-bold uppercase tracking-widest mb-2">スタンダードプラン</p>
+        <h2 class="text-2xl md:text-4xl font-black text-teal-900">暮らし安心プラス</h2>
+        <p class="text-gray-500 mt-2 text-sm">4つのサービスが揃ったフルカバープラン — <span class="font-bold text-teal-700">月額 ¥1,700</span></p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-6">
+
+        <!-- まもるん -->
+        <div class="bg-white rounded-2xl p-6 shadow-sm reveal">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0">
+              <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+              </svg>
+            </div>
+            <div>
+              <h3 class="font-black text-gray-900 text-base md:text-lg">近隣トラブル解決支援<br><span class="text-teal-700">まもるん</span></h3>
+            </div>
+          </div>
+          <p class="text-sm text-gray-600 mb-4">警察OB・OGの専門相談員が24時間対応。ストーカー・騒音・嫌がらせなど、事件になる前に解決をサポートします。</p>
+          <div class="grid grid-cols-2 gap-2">
+            <div class="bg-blue-50 rounded-lg p-3 text-center">
+              <div class="text-2xl font-black text-blue-700">24h</div>
+              <div class="text-xs text-blue-500 mt-0.5">いつでも相談</div>
+            </div>
+            <div class="bg-blue-50 rounded-lg p-3 text-center">
+              <div class="text-lg font-black text-blue-700">OB対応</div>
+              <div class="text-xs text-blue-500 mt-0.5">警察OB・OG</div>
+            </div>
+          </div>
+          <ul class="mt-4 space-y-1.5 text-xs text-gray-600">
+            <li class="flex gap-2"><span class="text-blue-500">›</span> ストーカー・不法侵入被害への対応</li>
+            <li class="flex gap-2"><span class="text-blue-500">›</span> 近隣騒音・嫌がらせトラブル相談</li>
+            <li class="flex gap-2"><span class="text-blue-500">›</span> 行政機関・専門家への紹介案内</li>
+          </ul>
+        </div>
+
+        <!-- あんしんネットライフ -->
+        <div class="bg-white rounded-2xl p-6 shadow-sm reveal delay-100">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center flex-shrink-0">
+              <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+            </div>
+            <div>
+              <h3 class="font-black text-gray-900 text-base md:text-lg">あんしんネット<br><span class="text-teal-700">ライフサポート</span></h3>
+            </div>
+          </div>
+          <p class="text-sm text-gray-600 mb-4">ネット詐欺保険＋自宅盗難保険の2サービスをパッケージ化。予防から保険金請求まで、ワンストップでサポートします。</p>
+          <div class="grid grid-cols-2 gap-2">
+            <div class="bg-green-50 rounded-lg p-3 text-center">
+              <div class="text-sm font-black text-green-700">詐欺保険</div>
+              <div class="text-lg font-black text-green-800">最大10万円</div>
+              <div class="text-xs text-green-500">ECサイト・PCサポート詐欺</div>
+            </div>
+            <div class="bg-green-50 rounded-lg p-3 text-center">
+              <div class="text-sm font-black text-green-700">盗難保険</div>
+              <div class="text-lg font-black text-green-800">最大10万円</div>
+              <div class="text-xs text-green-500">置き配・自宅内動産</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ノートン -->
+        <div class="bg-white rounded-2xl p-6 shadow-sm reveal delay-200">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-12 h-12 bg-yellow-100 rounded-xl flex items-center justify-center flex-shrink-0">
+              <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17H3a2 2 0 01-2-2V5a2 2 0 012-2h14a2 2 0 012 2v10a2 2 0 01-2 2h-2"/>
+              </svg>
+            </div>
+            <div>
+              <h3 class="font-black text-gray-900 text-base md:text-lg">ノートン<br><span class="text-teal-700">セキュリティ</span></h3>
+            </div>
+          </div>
+          <p class="text-sm text-gray-600 mb-4">PC・スマホ・タブレットの複数端末を多層防御。フリーWi-Fi利用時のリスクやフィッシング詐欺からデバイスを守ります。</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="bg-yellow-50 text-yellow-700 text-xs font-bold px-3 py-1.5 rounded-full">Windows/Mac</span>
+            <span class="bg-yellow-50 text-yellow-700 text-xs font-bold px-3 py-1.5 rounded-full">Android/iOS</span>
+            <span class="bg-yellow-50 text-yellow-700 text-xs font-bold px-3 py-1.5 rounded-full">複数端末対応</span>
+            <span class="bg-yellow-50 text-yellow-700 text-xs font-bold px-3 py-1.5 rounded-full">自動更新</span>
+          </div>
+        </div>
+
+        <!-- データ復旧 -->
+        <div class="bg-white rounded-2xl p-6 shadow-sm reveal delay-300">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center flex-shrink-0">
+              <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582 4-8 4m0 5c0 2.21 3.582 4 8 4"/>
+              </svg>
+            </div>
+            <div>
+              <h3 class="font-black text-gray-900 text-base md:text-lg">データ<br><span class="text-teal-700">復旧サービス</span></h3>
+            </div>
+          </div>
+          <p class="text-sm text-gray-600 mb-4">突然の故障・水没・誤操作で失ったデータを復旧。保険型サービスのため、復旧費用が無料になります。</p>
+          <div class="flex items-center gap-4">
+            <div class="bg-purple-50 rounded-lg p-3 text-center flex-1">
+              <div class="text-3xl font-black text-purple-700">94<span class="text-lg">%</span></div>
+              <div class="text-xs text-purple-500">データ復旧率</div>
+            </div>
+            <ul class="space-y-1.5 text-xs text-gray-600 flex-1">
+              <li class="flex gap-2"><span class="text-purple-500">›</span> PC・スマホ・タブレット対応</li>
+              <li class="flex gap-2"><span class="text-purple-500">›</span> 写真・動画・電話帳・LINE</li>
+              <li class="flex gap-2"><span class="text-purple-500">›</span> デジカメ・ムービー対応</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== PREMIUM PLAN DETAIL ===== -->
+  <section id="premium" class="bg-white py-16">
+    <div class="max-w-5xl mx-auto px-4">
+      <div class="text-center mb-12 reveal">
+        <p class="text-teal-600 text-sm font-bold uppercase tracking-widest mb-2">スリムプラン</p>
+        <h2 class="text-2xl md:text-4xl font-black text-teal-900">暮らし安心プレミアム</h2>
+        <p class="text-gray-500 mt-2 text-sm">必要なものだけを厳選した、コスパ重視プラン — <span class="font-bold text-teal-700">月額 ¥1,200</span></p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
+
+        <!-- まもるん -->
+        <div class="bg-teal-50 rounded-2xl p-6 shadow-sm reveal">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0">
+              <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+              </svg>
+            </div>
+            <h3 class="font-black text-gray-900 text-base md:text-lg">近隣トラブル解決支援<br><span class="text-teal-700">まもるん</span></h3>
+          </div>
+          <p class="text-sm text-gray-600">警察OB・OGが24時間対応。騒音・ストーカー・嫌がらせなど、日常の困りごとをプロが解決支援します。</p>
+        </div>
+
+        <!-- あんしんネット -->
+        <div class="bg-teal-50 rounded-2xl p-6 shadow-sm reveal delay-100">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center flex-shrink-0">
+              <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+            </div>
+            <h3 class="font-black text-gray-900 text-base md:text-lg">あんしんネット<br><span class="text-teal-700">ライフサポート</span></h3>
+          </div>
+          <p class="text-sm text-gray-600">ネット詐欺保険＋自宅盗難保険。ECサイト詐欺や置き配盗難など、現代の生活リスクをカバー（各最大10万円）。</p>
+        </div>
+      </div>
+
+      <div class="mt-8 max-w-2xl mx-auto bg-gray-50 border border-gray-200 rounded-2xl p-5 reveal">
+        <p class="text-sm text-gray-600 text-center">
+          <span class="font-bold text-gray-800">「プラスプラン」との違い：</span>
+          プレミアムプランはノートンセキュリティとデータ復旧サービスを含みません。<br>
+          すべての機能が必要な場合は <a href="#plus" class="text-teal-700 font-bold underline">暮らし安心プラス</a> をご検討ください。
+        </p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== WHY / POINTS ===== -->
+  <section class="bg-teal-800 py-16">
+    <div class="max-w-5xl mx-auto px-4">
+      <div class="text-center mb-12 reveal">
+        <p class="text-teal-300 text-sm font-bold uppercase tracking-widest mb-2">選ばれる理由</p>
+        <h2 class="text-2xl md:text-4xl font-black text-white">おすすめポイント・安心の理由</h2>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="text-center reveal">
+          <div class="w-16 h-16 bg-teal-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+          </div>
+          <h3 class="text-white font-black text-lg mb-2">24時間365日対応</h3>
+          <p class="text-teal-200 text-sm">近隣トラブルはいつ起きるかわかりません。夜中でも休日でも、すぐに相談できる体制を整えています。</p>
+        </div>
+        <div class="text-center reveal delay-100">
+          <div class="w-16 h-16 bg-teal-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+            </svg>
+          </div>
+          <h3 class="text-white font-black text-lg mb-2">専門家による対応</h3>
+          <p class="text-teal-200 text-sm">警察OB・OGの専門相談員が直接ご対応。行政機関や専門家への橋渡しまで、的確に案内します。</p>
+        </div>
+        <div class="text-center reveal delay-200">
+          <div class="w-16 h-16 bg-teal-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/>
+            </svg>
+          </div>
+          <h3 class="text-white font-black text-lg mb-2">トータルカバレッジ</h3>
+          <p class="text-teal-200 text-sm">セキュリティ・保険・データ復旧・トラブル対応をひとまとめに。複数サービスをバラバラに契約する手間がありません。</p>
+        </div>
+      </div>
+
+      <!-- Stats row -->
+      <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="bg-white/10 rounded-xl p-4 text-center reveal">
+          <div class="text-3xl font-black text-gold-400">94<span class="text-lg">%</span></div>
+          <div class="text-teal-200 text-xs mt-1">データ復旧率</div>
+        </div>
+        <div class="bg-white/10 rounded-xl p-4 text-center reveal delay-100">
+          <div class="text-3xl font-black text-gold-400">24<span class="text-lg">h</span></div>
+          <div class="text-teal-200 text-xs mt-1">トラブル相談受付</div>
+        </div>
+        <div class="bg-white/10 rounded-xl p-4 text-center reveal delay-200">
+          <div class="text-3xl font-black text-gold-400">10<span class="text-lg">万円</span></div>
+          <div class="text-teal-200 text-xs mt-1">詐欺・盗難保険補償</div>
+        </div>
+        <div class="bg-white/10 rounded-xl p-4 text-center reveal delay-300">
+          <div class="text-3xl font-black text-gold-400">4<span class="text-lg">in1</span></div>
+          <div class="text-teal-200 text-xs mt-1">サービス統合</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== PRICING ===== -->
+  <section id="price" class="bg-teal-50 py-16 wave-bottom wave-bottom-white">
+    <div class="max-w-5xl mx-auto px-4">
+      <div class="text-center mb-12 reveal">
+        <p class="text-teal-600 text-sm font-bold uppercase tracking-widest mb-2">料金プラン</p>
+        <h2 class="text-2xl md:text-4xl font-black text-teal-900">シンプルな月額料金</h2>
+        <p class="text-gray-500 mt-2 text-sm">初期費用なし。月額のみでご利用いただけます。</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+
+        <!-- Plus Price -->
+        <div class="bg-white rounded-2xl shadow-lg overflow-hidden reveal">
+          <div class="bg-teal-700 p-6 text-center text-white">
+            <p class="text-teal-300 text-xs font-bold uppercase tracking-widest mb-1">スタンダード</p>
+            <h3 class="text-xl font-black mb-4">暮らし安心プラス</h3>
+            <div class="text-5xl font-black mb-1">¥1,700</div>
+            <p class="text-teal-200 text-sm">/ 月（税込）</p>
+          </div>
+          <div class="p-6">
+            <p class="text-xs text-gray-500 text-center mb-4">含まれるサービス</p>
+            <ul class="space-y-2 text-sm text-gray-700 mb-6">
+              <li class="flex items-center gap-2"><span class="w-5 h-5 bg-teal-100 text-teal-600 rounded-full flex items-center justify-center text-xs font-bold">✓</span> まもるん（24h近隣トラブル対応）</li>
+              <li class="flex items-center gap-2"><span class="w-5 h-5 bg-teal-100 text-teal-600 rounded-full flex items-center justify-center text-xs font-bold">✓</span> あんしんネットライフサポート</li>
+              <li class="flex items-center gap-2"><span class="w-5 h-5 bg-teal-100 text-teal-600 rounded-full flex items-center justify-center text-xs font-bold">✓</span> ノートンセキュリティ</li>
+              <li class="flex items-center gap-2"><span class="w-5 h-5 bg-teal-100 text-teal-600 rounded-full flex items-center justify-center text-xs font-bold">✓</span> データ復旧サービス</li>
+            </ul>
+            <a href="#cta" class="block w-full bg-teal-700 hover:bg-teal-800 text-white text-center font-bold py-3 rounded-xl transition-colors">
+              このプランで申し込む
+            </a>
+          </div>
+        </div>
+
+        <!-- Premium Price -->
+        <div class="bg-white rounded-2xl shadow-lg overflow-hidden reveal delay-200">
+          <div class="bg-gradient-to-br from-teal-700 to-teal-500 p-6 text-center text-white relative">
+            <div class="absolute top-4 right-4 bg-gold-500 text-white text-xs font-bold px-3 py-1 rounded-full">コスパ◎</div>
+            <p class="text-teal-200 text-xs font-bold uppercase tracking-widest mb-1">スリム版</p>
+            <h3 class="text-xl font-black mb-4">暮らし安心プレミアム</h3>
+            <div class="text-5xl font-black mb-1">¥1,200</div>
+            <p class="text-teal-200 text-sm">/ 月（税込）</p>
+          </div>
+          <div class="p-6">
+            <p class="text-xs text-gray-500 text-center mb-4">含まれるサービス</p>
+            <ul class="space-y-2 text-sm text-gray-700 mb-6">
+              <li class="flex items-center gap-2"><span class="w-5 h-5 bg-teal-100 text-teal-600 rounded-full flex items-center justify-center text-xs font-bold">✓</span> まもるん（24h近隣トラブル対応）</li>
+              <li class="flex items-center gap-2"><span class="w-5 h-5 bg-teal-100 text-teal-600 rounded-full flex items-center justify-center text-xs font-bold">✓</span> あんしんネットライフサポート</li>
+              <li class="flex items-center gap-2"><span class="w-5 h-5 bg-gray-100 text-gray-400 rounded-full flex items-center justify-center text-xs">－</span> <span class="text-gray-400">ノートンセキュリティ</span></li>
+              <li class="flex items-center gap-2"><span class="w-5 h-5 bg-gray-100 text-gray-400 rounded-full flex items-center justify-center text-xs">－</span> <span class="text-gray-400">データ復旧サービス</span></li>
+            </ul>
+            <a href="#cta" class="block w-full border-2 border-teal-700 text-teal-700 hover:bg-teal-700 hover:text-white text-center font-bold py-3 rounded-xl transition-colors">
+              このプランで申し込む
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Simulation note -->
+      <div class="mt-10 max-w-3xl mx-auto bg-white rounded-2xl p-6 shadow-sm reveal">
+        <h4 class="font-bold text-gray-800 mb-3 flex items-center gap-2">
+          <svg class="w-5 h-5 text-gold-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+          </svg>
+          収益シミュレーション（管理会社様向け）
+        </h4>
+        <p class="text-xs text-gray-500 mb-3">月間紹介件数100件の場合の想定収益</p>
+        <div class="overflow-x-auto">
+          <table class="w-full text-xs">
+            <thead>
+              <tr class="bg-gray-50">
+                <th class="text-left p-2 font-bold text-gray-600">商品名</th>
+                <th class="text-right p-2 font-bold text-gray-600">ストック手数料/月</th>
+                <th class="text-right p-2 font-bold text-gray-600">1年後ストック収益</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-t border-gray-100">
+                <td class="p-2 text-gray-700">暮らし安心プラス</td>
+                <td class="p-2 text-right text-gray-700">¥10,000〜</td>
+                <td class="p-2 text-right text-gray-700">¥120,000〜</td>
+              </tr>
+              <tr class="border-t border-gray-100">
+                <td class="p-2 text-gray-700">暮らし安心プレミアム</td>
+                <td class="p-2 text-right text-gray-700">¥7,000〜</td>
+                <td class="p-2 text-right text-gray-700">¥84,000〜</td>
+              </tr>
+              <tr class="border-t border-gray-100 bg-teal-50 font-bold">
+                <td class="p-2 text-teal-800">合計（初年度年間）</td>
+                <td class="p-2 text-right text-teal-800">¥17,000〜</td>
+                <td class="p-2 text-right text-teal-800">約¥1,326,000</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="text-xs text-gray-400 mt-2">※あくまでもシミュレーションとなります。契約率によって変動します。</p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== CTA ===== -->
+  <section id="cta" class="bg-white py-16">
+    <div class="max-w-3xl mx-auto px-4 text-center">
+      <div class="reveal">
+        <p class="text-teal-600 text-sm font-bold uppercase tracking-widest mb-3">お問い合わせ</p>
+        <h2 class="text-2xl md:text-4xl font-black text-teal-900 mb-4">まずはお気軽にご連絡ください</h2>
+        <p class="text-gray-500 text-sm md:text-base mb-10">資料請求・プランのご相談・お申し込みまで、担当スタッフが丁寧にご対応します。</p>
+      </div>
+
+      <div class="grid sm:grid-cols-3 gap-4 reveal">
+        <a href="mailto:info@lifeap.co.jp" class="group bg-teal-700 hover:bg-teal-800 text-white rounded-2xl p-6 transition-all shadow-md hover:shadow-xl">
+          <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+            </svg>
+          </div>
+          <div class="font-black text-base mb-1">お問い合わせ</div>
+          <div class="text-teal-200 text-xs">メールで相談する</div>
+        </a>
+
+        <a href="#" class="group bg-white border-2 border-teal-700 text-teal-700 hover:bg-teal-50 rounded-2xl p-6 transition-all shadow-md hover:shadow-xl">
+          <div class="w-12 h-12 bg-teal-100 rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+            </svg>
+          </div>
+          <div class="font-black text-base mb-1">資料請求</div>
+          <div class="text-teal-500 text-xs">詳細資料を受け取る</div>
+        </a>
+
+        <a href="#" class="group bg-gold-500 hover:bg-gold-600 text-white rounded-2xl p-6 transition-all shadow-md hover:shadow-xl">
+          <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+            </svg>
+          </div>
+          <div class="font-black text-base mb-1">今すぐ申し込む</div>
+          <div class="text-yellow-100 text-xs">プランを選んで申し込み</div>
+        </a>
+      </div>
+
+      <!-- Company info -->
+      <div class="mt-12 bg-teal-50 rounded-2xl p-6 text-left reveal">
+        <h4 class="font-bold text-teal-800 mb-3 text-sm">運営会社</h4>
+        <div class="grid md:grid-cols-2 gap-4 text-xs text-gray-600">
+          <div>
+            <p><span class="font-bold text-gray-700">社名：</span>株式会社lifeap</p>
+            <p><span class="font-bold text-gray-700">代表：</span>前田 崇志</p>
+            <p><span class="font-bold text-gray-700">設立：</span>2018年6月6日</p>
+            <p><span class="font-bold text-gray-700">資本金：</span>4,300万円（資本準備金含）</p>
+          </div>
+          <div>
+            <p><span class="font-bold text-gray-700">本社：</span>東京都港区赤坂3-17-3 H1O赤坂11F</p>
+            <p><span class="font-bold text-gray-700">支店：</span>福岡県福岡市博多区祇園町2-8</p>
+            <p><span class="font-bold text-gray-700">Pマーク：</span>第10862810号</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== NOTES ===== -->
+  <section class="bg-gray-50 py-8 border-t border-gray-200">
+    <div class="max-w-5xl mx-auto px-4">
+      <h4 class="text-sm font-bold text-gray-600 mb-3">注意事項</h4>
+      <ul class="space-y-1.5 text-xs text-gray-500">
+        <li>・データ復旧サービスは端末の修理は対象外となります。スマートフォンのデータ復旧対象は写真・動画・電話帳・音楽・LINEのデータに限ります。</li>
+        <li>・あんしんネットライフサポートの保険補償は年間最大10万円（ネット詐欺保険・自宅盗難保険それぞれ別枠）。詳細は別途約款をご確認ください。</li>
+        <li>・ノートンセキュリティの対応端末数および機能詳細は、サービス提供条件に基づきます。</li>
+        <li>・収益シミュレーションはあくまで参考値であり、実際の収益を保証するものではありません。</li>
+        <li>・各サービスの詳細・ご利用条件は申し込み時に改めてご確認ください。</li>
+        <li>・掲載内容は予告なく変更となる場合があります。</li>
+      </ul>
+    </div>
+  </section>
+
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="bg-teal-900 text-teal-200 py-8">
+    <div class="max-w-5xl mx-auto px-4">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 bg-teal-700 rounded-full flex items-center justify-center">
+            <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+            </svg>
+          </div>
+          <span class="font-bold text-white">lifeap</span>
+        </div>
+        <nav class="flex flex-wrap gap-4 text-xs">
+          <a href="#plans" class="hover:text-white transition-colors">プラン比較</a>
+          <a href="#plus" class="hover:text-white transition-colors">暮らし安心プラス</a>
+          <a href="#premium" class="hover:text-white transition-colors">暮らし安心プレミアム</a>
+          <a href="#price" class="hover:text-white transition-colors">料金</a>
+          <a href="#cta" class="hover:text-white transition-colors">お問い合わせ</a>
+        </nav>
+        <p class="text-xs text-teal-400">Copyright © 2026 lifeap Co.,Ltd.</p>
+      </div>
+    </div>
+  </footer>
+
+
+  <script>
+    // Sticky nav shadow
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('nav-scrolled', window.scrollY > 10);
+    });
+
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    reveals.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
