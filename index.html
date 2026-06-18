@@ -38,6 +38,10 @@
     .nav-scrolled { box-shadow:0 2px 16px rgba(0,0,0,.1); }
     @keyframes floaty { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-8px);} }
     .floaty { animation:floaty 4s ease-in-out infinite; }
+    /* 日本語の改行を自然に（中途半端な改行・孤立文字を防ぐ） */
+    :where(h1,h2,h3){ text-wrap: balance; }
+    p, li { text-wrap: pretty; }
+    .jp-phrase { word-break: auto-phrase; line-break: strict; }
   </style>
 </head>
 <body class="font-sans text-gray-800 bg-white">
@@ -104,7 +108,7 @@
             <svg class="w-6 h-6 text-slate-500" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.54 8.46a5 5 0 010 7.07"/><path d="M19.07 4.93a10 10 0 010 14.14"/></svg>
           </div>
           <p class="text-[11px] font-bold tracking-widest text-slate-400 mb-2">ご近所トラブル</p>
-          <p class="text-gray-800 font-bold text-[15px] leading-relaxed">「上階の足音や深夜の声で、よく眠れない…」</p>
+          <p class="text-gray-800 font-bold text-[15px] leading-relaxed jp-phrase">「上階の足音や深夜の声で、よく眠れない…」</p>
         </div>
         <!-- ネット詐欺・盗難 -->
         <div class="bg-white border border-gray-200 rounded-2xl p-6 reveal delay-100 hover:shadow-md transition-shadow">
@@ -112,7 +116,7 @@
             <svg class="w-6 h-6 text-slate-500" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
           </div>
           <p class="text-[11px] font-bold tracking-widest text-slate-400 mb-2">ネット詐欺・盗難</p>
-          <p class="text-gray-800 font-bold text-[15px] leading-relaxed">「通販で騙されたかも。置き配も盗まれて不安…」</p>
+          <p class="text-gray-800 font-bold text-[15px] leading-relaxed jp-phrase">「通販で騙されたかも。置き配も盗まれて不安…」</p>
         </div>
         <!-- ウイルス・フィッシング -->
         <div class="bg-white border border-gray-200 rounded-2xl p-6 reveal delay-200 hover:shadow-md transition-shadow">
@@ -120,7 +124,7 @@
             <svg class="w-6 h-6 text-slate-500" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9.5 11.5l2 2 3.5-3.5"/></svg>
           </div>
           <p class="text-[11px] font-bold tracking-widest text-slate-400 mb-2">ウイルス・フィッシング</p>
-          <p class="text-gray-800 font-bold text-[15px] leading-relaxed">「公共Wi-Fiや怪しいメール、ウイルスが心配…」</p>
+          <p class="text-gray-800 font-bold text-[15px] leading-relaxed jp-phrase">「公共Wi-Fiや怪しいメール、ウイルスが心配…」</p>
         </div>
         <!-- データ消失 -->
         <div class="bg-white border border-gray-200 rounded-2xl p-6 reveal delay-300 hover:shadow-md transition-shadow">
@@ -128,7 +132,7 @@
             <svg class="w-6 h-6 text-slate-500" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M9 7l6 6"/><path d="M15 7l-6 6"/><path d="M12 18h.01"/></svg>
           </div>
           <p class="text-[11px] font-bold tracking-widest text-slate-400 mb-2">データの消失</p>
-          <p class="text-gray-800 font-bold text-[15px] leading-relaxed">「スマホが壊れたら、写真も思い出も全部消える…」</p>
+          <p class="text-gray-800 font-bold text-[15px] leading-relaxed jp-phrase">「スマホが壊れたら、写真も思い出も全部消える…」</p>
         </div>
       </div>
 
@@ -385,7 +389,7 @@
       <div class="grid md:grid-cols-2 gap-5">
         <div class="bg-white/10 rounded-2xl p-6 reveal">
           <p class="text-gold-400 text-sm font-bold mb-1">お悩み 01</p>
-          <p class="text-white font-bold mb-3">「隣の騒音や嫌がらせ、警察に言うほどでもなくて我慢してる…」</p>
+          <p class="text-white font-bold mb-3 jp-phrase">「隣の騒音や嫌がらせ、警察に言うほどでもなくて我慢してる…」</p>
           <div class="border-t border-white/15 pt-3">
             <p class="text-teal-300 text-sm font-bold mb-1">✓ こう解決できます</p>
             <p class="text-teal-100 text-sm"><span class="font-bold text-white">まもるん</span>なら、警察OB・OGの専門相談員が24時間対応。事件になる前から親身に相談に乗ります。</p>
@@ -393,7 +397,7 @@
         </div>
         <div class="bg-white/10 rounded-2xl p-6 reveal delay-100">
           <p class="text-gold-400 text-sm font-bold mb-1">お悩み 02</p>
-          <p class="text-white font-bold mb-3">「通販で詐欺に遭った」「置き配の荷物が盗まれた」</p>
+          <p class="text-white font-bold mb-3 jp-phrase">「通販で詐欺に遭った」「置き配の荷物が盗まれた」</p>
           <div class="border-t border-white/15 pt-3">
             <p class="text-teal-300 text-sm font-bold mb-1">✓ こう解決できます</p>
             <p class="text-teal-100 text-sm"><span class="font-bold text-white">あんしんネットライフサポート</span>が、ネット詐欺・盗難を各最大10万円まで補償します。</p>
@@ -401,7 +405,7 @@
         </div>
         <div class="bg-white/10 rounded-2xl p-6 reveal delay-200">
           <p class="text-gold-400 text-sm font-bold mb-1">お悩み 03</p>
-          <p class="text-white font-bold mb-3">「フリーWi-Fiが不安」「フィッシングメールが届く」</p>
+          <p class="text-white font-bold mb-3 jp-phrase">「フリーWi-Fiが不安」「フィッシングメールが届く」</p>
           <div class="border-t border-white/15 pt-3">
             <p class="text-teal-300 text-sm font-bold mb-1">✓ こう解決できます</p>
             <p class="text-teal-100 text-sm"><span class="font-bold text-white">ウイルスバスター</span>が複数端末をリアルタイム保護。危険サイトの警告で安全に使えます。<span class="text-teal-300 text-xs">（プレミアム）</span></p>
@@ -409,7 +413,7 @@
         </div>
         <div class="bg-white/10 rounded-2xl p-6 reveal delay-300">
           <p class="text-gold-400 text-sm font-bold mb-1">お悩み 04</p>
-          <p class="text-white font-bold mb-3">「スマホが水没して、写真もLINEも消えた…」</p>
+          <p class="text-white font-bold mb-3 jp-phrase">「スマホが水没して、写真もLINEも消えた…」</p>
           <div class="border-t border-white/15 pt-3">
             <p class="text-teal-300 text-sm font-bold mb-1">✓ こう解決できます</p>
             <p class="text-teal-100 text-sm"><span class="font-bold text-white">データ復旧サービス</span>が復旧率94%以上で大切なデータを復元。費用も無料です。<span class="text-teal-300 text-xs">（プレミアム）</span></p>
@@ -537,6 +541,17 @@
           <input id="contactName" name="name" type="text" required placeholder="例）山田 太郎" class="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500">
         </div>
 
+        <div class="grid sm:grid-cols-2 gap-4 mb-5">
+          <div>
+            <label for="contactEmail" class="block text-sm font-bold text-gray-700 mb-2">メールアドレス <span class="text-gold-600">*</span></label>
+            <input id="contactEmail" name="email" type="email" required placeholder="例）you@example.com" class="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500">
+          </div>
+          <div>
+            <label for="contactPhone" class="block text-sm font-bold text-gray-700 mb-2">電話番号 <span class="text-gray-400 font-normal">（任意）</span></label>
+            <input id="contactPhone" name="phone" type="tel" placeholder="例）090-1234-5678" class="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500">
+          </div>
+        </div>
+
         <div class="mb-5">
           <label for="contactMessage" class="block text-sm font-bold text-gray-700 mb-2">お問い合わせ内容 <span class="text-gold-600">*</span></label>
           <textarea id="contactMessage" name="message" required rows="5" placeholder="ご相談内容・ご希望のプランなどをご記入ください。" class="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500"></textarea>
@@ -547,9 +562,23 @@
           <span>個人情報の取り扱いについて同意のうえ送信します。（取得した情報はお問い合わせ対応の目的にのみ利用します）</span>
         </label>
 
-        <button type="submit" class="w-full bg-gold-500 hover:bg-gold-600 text-white font-bold py-3.5 rounded-xl transition-colors shadow-md">この内容で送信する</button>
-        <p class="text-xs text-gray-400 mt-3 text-center">送信ボタンを押すと、ご利用のメールソフトが起動し alliance@lifeap.co 宛のメールが作成されます。</p>
+        <!-- スパム対策（人間には非表示） -->
+        <input type="text" name="botcheck" id="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;">
+
+        <button type="submit" id="submitBtn" class="w-full bg-gold-500 hover:bg-gold-600 text-white font-bold py-3.5 rounded-xl transition-colors shadow-md disabled:opacity-60 disabled:cursor-not-allowed">この内容で送信する</button>
+        <p id="formError" class="hidden text-sm text-red-600 mt-3 text-center"></p>
+        <p class="text-xs text-gray-400 mt-3 text-center">ご入力いただいた内容は、お問い合わせ対応の目的にのみ利用します。</p>
       </form>
+
+      <!-- 送信完了画面 -->
+      <div id="formSuccess" class="hidden reveal bg-white border-2 border-teal-100 rounded-2xl p-8 text-center shadow-sm">
+        <div class="w-16 h-16 bg-teal-100 rounded-full flex items-center justify-center mx-auto mb-4">
+          <svg class="w-8 h-8 text-teal-700" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
+        </div>
+        <h3 class="font-black text-teal-900 text-xl mb-2">送信が完了しました</h3>
+        <p class="text-gray-600 text-sm">お問い合わせいただきありがとうございます。<br>担当スタッフより、ご入力のご連絡先へご返信いたします。</p>
+        <p class="text-gray-400 text-xs mt-4">お急ぎの場合はお電話（03-6709-9237／平日11:00〜20:00）でも承ります。</p>
+      </div>
 
       <!-- 運営会社（会社名 + リンク） -->
       <div class="mt-12 bg-teal-50 rounded-2xl p-6 reveal flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -640,18 +669,96 @@
       setTimeout(() => document.getElementById(focusId).focus(), 400);
     }
 
-    function submitContact(e) {
-      e.preventDefault();
+    // ===== お問い合わせ送信（Web3Forms・無料／登録メールに直接届く） =====
+    // 設定方法（無料・1分）：
+    //   1) https://web3forms.com を開き、「alliance@lifeap.co.jp」を入力してアクセスキーを取得
+    //      （このメールアドレス宛に、入力内容がそのまま届くようになります）
+    //   2) 取得したアクセスキーを下の '' の中に貼り付け
+    //   ※ 空のままだと、送信時にメールソフトが起動する従来方式（mailto）で動作します。
+    const WEB3FORMS_ACCESS_KEY = 'f439c0a5-3bfa-4924-a366-ed2c893ca326';
+    const WEB3FORMS_ENDPOINT = 'https://api.web3forms.com/submit';
+    const CONTACT_EMAIL = 'alliance@lifeap.co.jp';
+
+    function gatherForm() {
       const type = document.querySelector('input[name="inquiryType"]:checked').value;
-      const name = document.getElementById('contactName').value.trim();
-      const company = document.getElementById('contactCompany').value.trim();
-      const message = document.getElementById('contactMessage').value.trim();
-      const isPartner = (type === '提携希望企業');
-      const subject = '【' + (isPartner ? '提携申込・お問い合わせ' : 'お問い合わせ') + '】' + (isPartner && company ? company + '：' : '') + name + ' 様';
-      let body = 'お問い合わせ種別：' + type + '\n';
-      if (isPartner) body += '会社名：' + company + '\n';
-      body += 'お名前：' + name + '\n\nお問い合わせ内容：\n' + message + '\n';
-      window.location.href = 'mailto:alliance@lifeap.co?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+      return {
+        type,
+        company: document.getElementById('contactCompany').value.trim(),
+        name: document.getElementById('contactName').value.trim(),
+        email: document.getElementById('contactEmail').value.trim(),
+        phone: document.getElementById('contactPhone').value.trim(),
+        message: document.getElementById('contactMessage').value.trim(),
+        isPartner: type === '提携希望企業'
+      };
+    }
+
+    function buildMailto(d) {
+      const subject = '【' + (d.isPartner ? '提携申込・お問い合わせ' : 'お問い合わせ') + '】' + (d.isPartner && d.company ? d.company + '：' : '') + d.name + ' 様';
+      let body = 'お問い合わせ種別：' + d.type + '\n';
+      if (d.isPartner) body += '会社名：' + d.company + '\n';
+      body += 'お名前：' + d.name + '\nメール：' + d.email + '\n電話：' + (d.phone || '（未入力）') + '\n\nお問い合わせ内容：\n' + d.message + '\n';
+      return 'mailto:' + CONTACT_EMAIL + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+    }
+
+    function showSuccess() {
+      const form = document.getElementById('contactForm');
+      const ok = document.getElementById('formSuccess');
+      form.classList.add('hidden');
+      ok.classList.remove('hidden');
+      ok.classList.add('visible');
+      ok.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    async function submitContact(e) {
+      e.preventDefault();
+      const d = gatherForm();
+      const btn = document.getElementById('submitBtn');
+      const err = document.getElementById('formError');
+      err.classList.add('hidden');
+
+      // スパム対策（ハニーポット）：人間以外が埋めたら静かに成功扱い
+      const hp = document.getElementById('botcheck');
+      if (hp && hp.value) { showSuccess(); return; }
+
+      // アクセスキー未設定 → メールソフト起動（従来方式）
+      if (!WEB3FORMS_ACCESS_KEY) {
+        window.location.href = buildMailto(d);
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = '送信中…';
+      try {
+        const res = await fetch(WEB3FORMS_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            access_key: WEB3FORMS_ACCESS_KEY,
+            from_name: 'lifeap 暮らし安心 LP',
+            subject: '【' + (d.isPartner ? '提携申込・お問い合わせ' : 'お問い合わせ') + '】' + (d.isPartner && d.company ? d.company + '：' : '') + d.name + ' 様',
+            replyto: d.email,
+            お問い合わせ種別: d.type,
+            会社名: d.isPartner ? d.company : '（個人）',
+            お名前: d.name,
+            メール: d.email,
+            電話番号: d.phone || '（未入力）',
+            お問い合わせ内容: d.message
+          })
+        });
+        const json = await res.json().catch(() => ({}));
+        if (res.ok && json.success) {
+          showSuccess();
+        } else {
+          throw new Error(json.message || '送信に失敗しました');
+        }
+      } catch (ex) {
+        err.textContent = '送信に失敗しました。お手数ですがメールソフトでの送信をお試しください。';
+        err.classList.remove('hidden');
+        window.location.href = buildMailto(d);
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'この内容で送信する';
+      }
     }
   </script>
 </body>
