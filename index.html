@@ -693,7 +693,7 @@
     }
 
     function buildMailto(d) {
-      const subject = '【' + (d.isPartner ? '提携申込・お問い合わせ' : 'お問い合わせ') + '】' + (d.isPartner && d.company ? d.company + '：' : '') + d.name + ' 様';
+      const subject = '【暮らし安心サービス ' + (d.isPartner ? '提携申込・お問い合わせ' : 'お問い合わせ') + '】' + (d.isPartner && d.company ? d.company + ':' : '') + d.name + ' 様';
       let body = 'お問い合わせ種別：' + d.type + '\n';
       if (d.isPartner) body += '会社名：' + d.company + '\n';
       body += 'お名前：' + d.name + '\nメール：' + d.email + '\n電話：' + (d.phone || '（未入力）') + '\n\nお問い合わせ内容：\n' + d.message + '\n';
