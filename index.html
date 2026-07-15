@@ -761,5 +761,23 @@
       }
     }
   </script>
+  <script>
+(function () {
+  // ★本番公開時はここを本番ドメインに変更
+  var BASE = 'https://memolyze-app-git-claude-happy-eins-aa7dc9-alliance-ccs-projects.vercel.app';
+  // 料金セクションの申込ボタンは出現順に プラス → プレミアム
+  var plans = ['plus', 'premium'];
+  var i = 0;
+  document.querySelectorAll('button').forEach(function (b) {
+    if (b.textContent.trim() === 'このプランで申し込む') {
+      var plan = plans[i++] || 'plus';
+      b.addEventListener('click', function (e) {
+        e.preventDefault();
+        location.href = BASE + '/subscribe?plan=' + plan;
+      });
+    }
+  });
+})();
+</script>
 </body>
 </html>
