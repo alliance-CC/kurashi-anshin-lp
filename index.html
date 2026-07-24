@@ -85,7 +85,8 @@
           ご近所トラブル・ネット詐欺・ウイルス・データ消失まで、日常のリスクをカバー。
         </p>
         <div class="flex flex-col sm:flex-row gap-3 justify-center animate-fade-up delay-400">
-          <a href="#cta" class="bg-gold-500 hover:bg-gold-600 text-white font-bold px-8 py-4 rounded-full text-sm md:text-base transition-all shadow-lg hover:shadow-xl">お申し込み・お問い合わせ</a>
+          <a href="https://payment-system.vercel.app/subscribe" data-apply="" class="bg-gold-500 hover:bg-gold-600 text-white font-bold px-8 py-4 rounded-full text-sm md:text-base transition-all shadow-lg hover:shadow-xl">お申し込み</a>
+          <a href="#cta" class="bg-white/15 hover:bg-white/25 text-white font-bold px-8 py-4 rounded-full text-sm md:text-base transition-all border border-white/30">お問い合わせ</a>
           <a href="#plans" class="bg-white/15 hover:bg-white/25 text-white font-bold px-8 py-4 rounded-full text-sm md:text-base transition-all border border-white/30">プランを比較する ↓</a>
         </div>
       </div>
@@ -167,7 +168,7 @@
               </div>
               <div><p class="text-teal-200 text-xs font-bold">スリム版</p><h3 class="text-xl font-black">暮らし安心プラス</h3></div>
             </div>
-            <div class="text-3xl font-black">¥1,200<span class="text-base font-normal text-teal-200">/月</span></div>
+            <div class="text-3xl font-black">¥1,200<span class="text-base font-normal text-teal-200">/月</span><span class="text-xs font-normal text-teal-200 ml-1">税抜</span></div>
           </div>
           <div class="p-6">
             <ul class="space-y-3 text-sm text-gray-700">
@@ -190,7 +191,7 @@
               </div>
               <div><p class="text-teal-200 text-xs font-bold">フルカバー</p><h3 class="text-xl font-black">暮らし安心プレミアム</h3></div>
             </div>
-            <div class="text-3xl font-black">¥1,700<span class="text-base font-normal text-teal-200">/月</span></div>
+            <div class="text-3xl font-black">¥1,700<span class="text-base font-normal text-teal-200">/月</span><span class="text-xs font-normal text-teal-200 ml-1">税抜</span></div>
           </div>
           <div class="p-6">
             <ul class="space-y-3 text-sm text-gray-700">
@@ -245,8 +246,8 @@
             </tr>
             <tr class="bg-teal-50">
               <td class="p-4 font-bold text-gray-800">月額料金</td>
-              <td class="p-4 text-center font-black text-teal-800 text-xl">¥1,200<span class="text-sm font-normal">/月</span></td>
-              <td class="p-4 text-center font-black text-teal-800 text-xl">¥1,700<span class="text-sm font-normal">/月</span></td>
+              <td class="p-4 text-center font-black text-teal-800 text-xl">¥1,200<span class="text-sm font-normal">/月</span><span class="block text-[10px] font-normal text-gray-500">税抜（税込¥1,320）</span></td>
+              <td class="p-4 text-center font-black text-teal-800 text-xl">¥1,700<span class="text-sm font-normal">/月</span><span class="block text-[10px] font-normal text-gray-500">税抜（税込¥1,870）</span></td>
             </tr>
           </tbody>
         </table>
@@ -445,8 +446,8 @@
           <div class="bg-teal-700 p-6 text-center text-white">
             <p class="text-teal-300 text-xs font-bold uppercase tracking-widest mb-1">スリム版</p>
             <h3 class="text-xl font-black mb-4">暮らし安心プラス</h3>
-            <div class="text-5xl font-black mb-1">¥1,200</div>
-            <p class="text-teal-200 text-sm">/ 月（税込）</p>
+            <div class="text-5xl font-black mb-1">¥1,200<span class="text-lg font-normal align-middle ml-1">税抜</span></div>
+            <p class="text-teal-200 text-sm">/ 月（税込 ¥1,320）</p>
           </div>
           <div class="p-6">
             <p class="text-xs text-gray-500 text-center mb-4">含まれるサービス</p>
@@ -456,7 +457,7 @@
               <li class="flex items-center gap-2"><span class="w-5 h-5 bg-gray-100 text-gray-400 rounded-full flex items-center justify-center text-xs">－</span> <span class="text-gray-400">ウイルスバスター</span></li>
               <li class="flex items-center gap-2"><span class="w-5 h-5 bg-gray-100 text-gray-400 rounded-full flex items-center justify-center text-xs">－</span> <span class="text-gray-400">データ復旧サービス</span></li>
             </ul>
-            <button type="button" onclick="openForm('入居者')" class="block w-full border-2 border-teal-700 text-teal-700 hover:bg-teal-700 hover:text-white text-center font-bold py-3 rounded-xl transition-colors">このプランで申し込む</button>
+            <a href="https://payment-system.vercel.app/subscribe?plan=plus" data-apply="plus" class="block w-full border-2 border-teal-700 text-teal-700 hover:bg-teal-700 hover:text-white text-center font-bold py-3 rounded-xl transition-colors">このプランで申し込む</a>
           </div>
         </div>
 
@@ -466,8 +467,8 @@
             <div class="absolute top-4 right-4 bg-gold-500 text-white text-xs font-bold px-3 py-1 rounded-full">おすすめ</div>
             <p class="text-teal-200 text-xs font-bold uppercase tracking-widest mb-1">フルカバー</p>
             <h3 class="text-xl font-black mb-4">暮らし安心プレミアム</h3>
-            <div class="text-5xl font-black mb-1">¥1,700</div>
-            <p class="text-teal-200 text-sm">/ 月（税込）</p>
+            <div class="text-5xl font-black mb-1">¥1,700<span class="text-lg font-normal align-middle ml-1">税抜</span></div>
+            <p class="text-teal-200 text-sm">/ 月（税込 ¥1,870）</p>
           </div>
           <div class="p-6">
             <p class="text-xs text-gray-500 text-center mb-4">含まれるサービス</p>
@@ -477,7 +478,7 @@
               <li class="flex items-center gap-2"><span class="w-5 h-5 bg-teal-100 text-teal-600 rounded-full flex items-center justify-center text-xs font-bold">✓</span> ウイルスバスター</li>
               <li class="flex items-center gap-2"><span class="w-5 h-5 bg-teal-100 text-teal-600 rounded-full flex items-center justify-center text-xs font-bold">✓</span> データ復旧サービス</li>
             </ul>
-            <button type="button" onclick="openForm('入居者')" class="block w-full bg-teal-700 hover:bg-teal-800 text-white text-center font-bold py-3 rounded-xl transition-colors">このプランで申し込む</button>
+            <a href="https://payment-system.vercel.app/subscribe?plan=premium" data-apply="premium" class="block w-full bg-teal-700 hover:bg-teal-800 text-white text-center font-bold py-3 rounded-xl transition-colors">このプランで申し込む</a>
           </div>
         </div>
       </div>
@@ -489,9 +490,9 @@
   <section id="cta" class="bg-white py-16">
     <div class="max-w-3xl mx-auto px-4 text-center">
       <div class="reveal">
-        <p class="text-teal-600 text-sm font-bold uppercase tracking-widest mb-3">お問い合わせ・お申し込み</p>
+        <p class="text-teal-600 text-sm font-bold uppercase tracking-widest mb-3">お問い合わせ</p>
         <h2 class="text-2xl md:text-4xl font-black text-teal-900 mb-4">まずはお気軽にご連絡ください</h2>
-        <p class="text-gray-500 text-sm md:text-base mb-10">お電話、またはフォームからご連絡いただけます。担当スタッフが丁寧にご対応します。</p>
+        <p class="text-gray-500 text-sm md:text-base mb-10">お電話、またはフォームからご連絡いただけます。担当スタッフが丁寧にご対応します。<br class="hidden sm:inline">お申し込みは各プランの「このプランで申し込む」ボタンからお進みください。</p>
       </div>
 
       <div class="reveal bg-teal-50 rounded-2xl p-6 mb-6">
@@ -505,8 +506,8 @@
 
       <div class="reveal grid sm:grid-cols-2 gap-4 mb-8">
         <button type="button" onclick="openForm('入居者')" class="group bg-teal-700 hover:bg-teal-800 text-white rounded-2xl p-5 transition-all shadow-md hover:shadow-xl">
-          <div class="font-black text-base mb-1">入居者向け 申込・相談</div>
-          <div class="text-teal-200 text-xs">プランのお申し込み・ご相談はこちら</div>
+          <div class="font-black text-base mb-1">入居者向け ご相談・お問い合わせ</div>
+          <div class="text-teal-200 text-xs">サービス内容のご質問・ご相談はこちら</div>
         </button>
         <button type="button" onclick="openForm('提携希望企業')" class="group bg-gold-500 hover:bg-gold-600 text-white rounded-2xl p-5 transition-all shadow-md hover:shadow-xl">
           <div class="font-black text-base mb-1">企業様の提携申込・お問い合わせ</div>
@@ -648,6 +649,15 @@
     }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
+    // ===== 決済アプリ(payment-system)への接続 =====
+    // 「お申し込み」ボタンは、お問い合わせフォームではなく決済アプリへ直接遷移します。
+    // ↓ 決済アプリの公開URL(Vercelのpayment-systemドメイン)に変更してください。ここ1か所だけでOK。
+    const PAYMENT_APP_BASE = "https://payment-system.vercel.app";
+    document.querySelectorAll('[data-apply]').forEach((a) => {
+      const plan = a.getAttribute('data-apply');
+      a.href = PAYMENT_APP_BASE + '/subscribe' + (plan ? '?plan=' + encodeURIComponent(plan) : '');
+    });
+
     function syncCompanyField() {
       const checked = document.querySelector('input[name="inquiryType"]:checked');
       const isPartner = checked && checked.value === '提携希望企業';
@@ -761,23 +771,5 @@
       }
     }
   </script>
-  <script>
-(function () {
-  // ★本番公開時はここを本番ドメインに変更
-  var BASE = 'https://memolyze-app-git-claude-happy-eins-aa7dc9-alliance-ccs-projects.vercel.app';
-  // 料金セクションの申込ボタンは出現順に プラス → プレミアム
-  var plans = ['plus', 'premium'];
-  var i = 0;
-  document.querySelectorAll('button').forEach(function (b) {
-    if (b.textContent.trim() === 'このプランで申し込む') {
-      var plan = plans[i++] || 'plus';
-      b.addEventListener('click', function (e) {
-        e.preventDefault();
-        location.href = BASE + '/subscribe?plan=' + plan;
-      });
-    }
-  });
-})();
-</script>
 </body>
 </html>
