@@ -287,6 +287,12 @@
             <li class="flex gap-2"><span class="text-blue-500">›</span> 近隣騒音・嫌がらせトラブル相談</li>
             <li class="flex gap-2"><span class="text-blue-500">›</span> 行政機関・専門家への紹介案内</li>
           </ul>
+          <!-- サービスを読んだ流れでそのまま専用窓口へ行けるようにする -->
+          <a href="https://form.run/@kurashianshinB" data-mamorun-form target="_blank" rel="noopener"
+             class="mt-4 flex items-center justify-center gap-1.5 border-2 border-blue-600 text-blue-700 hover:bg-blue-600 hover:text-white font-bold py-2.5 rounded-xl transition-colors text-sm">
+            まもるん専用フォームで相談する
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg>
+          </a>
         </div>
 
         <!-- あんしんネットライフ -->
@@ -506,6 +512,22 @@
         <p class="text-xs text-gray-500 mt-2">受付時間：11:00〜20:00（年末年始除く）</p>
       </div>
 
+      <!-- まもるん専用フォーム（外部フォーム）。近隣トラブルは専用窓口が受けるため、
+           サイト内フォームではなく form.run の専用フォームへ直接ご案内する。 -->
+      <a href="https://form.run/@kurashianshinB" data-mamorun-form target="_blank" rel="noopener"
+         class="reveal block bg-blue-600 hover:bg-blue-700 text-white rounded-2xl p-5 mb-4 transition-all shadow-md hover:shadow-xl text-left">
+        <div class="flex items-center justify-between gap-3">
+          <div>
+            <div class="font-black text-base mb-1 flex items-center gap-2">
+              <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+              まもるん専用 お問い合わせ
+            </div>
+            <div class="text-blue-100 text-xs">近隣トラブル（騒音・嫌がらせ・ストーカー等）のご相談はこちら</div>
+          </div>
+          <svg class="w-5 h-5 flex-shrink-0 text-blue-200" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg>
+        </div>
+      </a>
+
       <div class="reveal grid sm:grid-cols-2 gap-4 mb-8">
         <button type="button" onclick="openForm('入居者')" class="group bg-teal-700 hover:bg-teal-800 text-white rounded-2xl p-5 transition-all shadow-md hover:shadow-xl">
           <div class="font-black text-base mb-1">入居者向け ご相談・お問い合わせ</div>
@@ -667,6 +689,12 @@
     document.querySelectorAll('[data-terms]').forEach((a) => {
       a.href = PAYMENT_APP_BASE + '/legal/terms/' + a.getAttribute('data-terms');
     });
+
+    // まもるん専用のお問い合わせフォーム（form.run の外部フォーム）。
+    // 近隣トラブルの相談は専用窓口が受けるため、サイト内フォームとは分けています。
+    // URL が変わったらここ1か所を直せば、ページ内すべてのリンクに反映されます。
+    const MAMORUN_FORM_URL = "https://form.run/@kurashianshinB";
+    document.querySelectorAll('[data-mamorun-form]').forEach((a) => { a.href = MAMORUN_FORM_URL; });
 
     function syncCompanyField() {
       const checked = document.querySelector('input[name="inquiryType"]:checked');
